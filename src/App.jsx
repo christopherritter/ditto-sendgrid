@@ -1,11 +1,12 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "./firebase";
 
 import Login from "./components/Login.jsx";
 import Register from "./components/Register.jsx";
 import Reset from "./components/Reset.jsx";
-import Dashboard from "./components/Dashboard.jsx";
 
 import Navbar from "./components/Navbar.jsx";
 import Jumbotron from "./components/Jumbotron.jsx";
@@ -14,8 +15,17 @@ import WriteEmail from "./components/WriteEmail.jsx";
 import Footer from "./components/Footer.jsx";
 
 function App() {
-  const [user, setUser] = useState(null);
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [user] = useAuthState(auth);
+  // const [loggedIn, setLoggedIn] = useState(false);
+  // const history = useHistory();
+
+  // useEffect(() => {
+  //   if (loading) {
+  //     // maybe trigger a loading screen
+  //     return;
+  //   }
+  //   if (user) history.replace("/dashboard");
+  // }, [user, loading]);
 
   // const AssessLoggedInState = () => {
   //   Auth.currentAuthenticatedUser()
@@ -43,7 +53,7 @@ function App() {
   //   }
   // }, [loggedIn]);
 
-  const [templates, setTemplates] = useState([]);
+  // const [templates, setTemplates] = useState([]);
 
   // useEffect(() => {
   //   fetchTemplates();
@@ -64,7 +74,7 @@ function App() {
   const scrollToWriteEmail = () =>
     writeEmailRef.current.scrollIntoView({ behavior: "smooth" });
 
-  const [selectedTemplate, setSelectedTemplate] = useState(null);
+  // const [selectedTemplate, setSelectedTemplate] = useState(null);
 
   // async function createTemplate(formData) {
   //   console.log("createTemplate", formData);
@@ -110,7 +120,7 @@ function App() {
     <div className="App">
       <Router>
         <Navbar
-          loggedIn={loggedIn}
+          loggedIn={user}
           // signOut={signOut}
         />
         <Switch>
@@ -122,7 +132,7 @@ function App() {
             <SelectTemplate
               ref={selectTemplateRef}
               user={user}
-              templates={templates}
+              // templates={templates}
               // selectTemplate={(template) => setSelectedTemplate(template)}
               // deleteTemplate={(template) => deleteTemplate(template)}
               writeEmail={scrollToWriteEmail}
@@ -130,14 +140,13 @@ function App() {
             <WriteEmail
               ref={writeEmailRef}
               user={user}
-              selectedTemplate={selectedTemplate}
+              // selectedTemplate={selectedTemplate}
               // createTemplate={(formData) => createTemplate(formData)}
             />
           </Route>
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/reset" component={Reset} />
-          <Route exact path="/dashboard" component={Dashboard} />
         </Switch>
       </Router>
       <Footer />

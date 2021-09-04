@@ -1,11 +1,12 @@
 import React from "react";
 // import { AmplifySignOut } from '@aws-amplify/ui-react'
 // import { Auth } from "aws-amplify";
+import { logout } from "../firebase";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { AppBar, Toolbar, Typography, Button } from "@material-ui/core";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     flexGrow: 1,
   },
@@ -31,13 +32,13 @@ const Navbar = (props) => {
             Ditto
           </Typography>
           {loggedIn ? (
-            <Button color="primary" onClick={signOut}>
+            <Button color="primary" onClick={logout}>
               Sign Out
             </Button>
           ) : (
-            <Link to="/signin">
+            <Link to="/login">
               <Button color="primary">
-                Sign Up / Sign In
+                Login / Register
               </Button>
             </Link>
           )}

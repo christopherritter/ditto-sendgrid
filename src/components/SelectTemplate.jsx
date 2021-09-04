@@ -46,7 +46,7 @@ const SelectTemplate = forwardRef(({ templates, selectTemplate, user, deleteTemp
           </Grid>
           <Grid item xs={12}>
             <Grid container>
-              {templates.map((template, index) => (
+              {templates && templates.map((template, index) => (
                 <Grid item xs={12} md={6} lg={4} key={index}>
                   <Card className={classes.letter}>
                     <CardContent>
