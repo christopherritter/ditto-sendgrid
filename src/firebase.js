@@ -1,4 +1,8 @@
-import firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/firestore';
+import 'firebase/auth';
+import 'firebase/storage';
+import 'firebase/functions';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -10,9 +14,13 @@ const firebaseConfig = {
   measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID
 };
 
-const app = firebase.initializeApp(firebaseConfig);
-const auth = app.auth();
-const db = app.firestore();
+firebase.initializeApp(firebaseConfig);
+
+const app = firebase.app();
+const db = firebase.firestore();
+const auth = firebase.auth();
+const storage = firebase.storage();
+const functions = firebase.functions();
 
 const facebookProvider = new firebase.auth.FacebookAuthProvider()
 
@@ -78,8 +86,11 @@ const logout = () => {
 };
 
 export {
-  auth,
+  app,
   db,
+  auth,
+  storage,
+  functions,
   signInWithFacebook,
   signInWithEmailAndPassword,
   registerWithEmailAndPassword,
