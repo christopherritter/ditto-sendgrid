@@ -1,7 +1,7 @@
 import React, { useState, useEffect, forwardRef } from "react";
 import { functions } from "../firebase";
 
-import MessageDataService from "../services/message.service";
+import TemplateDataService from "../services/template.service";
 
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -44,9 +44,9 @@ const WriteEmail = forwardRef(
     function onCreateTemplate() {
       // createTemplate(formData);
 
-      MessageDataService.create(formData)
+      TemplateDataService.create(formData)
       .then(() => {
-        console.log("Created new message successfully!");
+        console.log("Created new template successfully!");
         setFormData(initialFormState);
       })
       .catch((e) => {
@@ -55,7 +55,6 @@ const WriteEmail = forwardRef(
     }
 
     async function sendEmail() {
-      // window.location.href = `mailto:${formData.recipient}?subject=${formData.subject}&body=${formData.body}`;
       const callable = functions.httpsCallable("genericEmail");
       return callable({
         text: "Sending email with React and SendGrid is fun!",

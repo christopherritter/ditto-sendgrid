@@ -1,4 +1,6 @@
-import React, { forwardRef } from "react";
+import React, { useEffect, forwardRef } from "react";
+
+import TemplateDataService from "../services/template.service";
 
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -27,8 +29,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SelectTemplate = forwardRef(({ templates, selectTemplate, user, deleteTemplate, writeEmail }, ref) => {
+const SelectTemplate = forwardRef(({ selectTemplate, user, deleteTemplate, writeEmail }, ref) => {
   const classes = useStyles();
+
+  const [templates, setTemplates] = React.useState([]);
+
+  useEffect(() => {
+    getTemplates();
+  }, []);
+
+  async function getTemplates() {
+    const snapshot = await TemplateDataService.getAll().get();
+    const results = [];
+    snapshot.forEach(doc => {
+      results.push(doc.data());
+    });
+    setTemplates(results);
+  }
 
   function onSelectTemplate(template) {
     selectTemplate(template);

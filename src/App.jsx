@@ -24,7 +24,7 @@ function App() {
   //     // maybe trigger a loading screen
   //     return;
   //   }
-  //   if (user) history.replace("/dashboard");
+  //   if (user) history.replace("/");
   // }, [user, loading]);
 
   // const AssessLoggedInState = () => {
