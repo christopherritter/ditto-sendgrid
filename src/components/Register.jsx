@@ -19,8 +19,9 @@ function Register() {
   };
   useEffect(() => {
     if (loading) return;
-    if (user) history.replace("/dashboard");
-  }, [user, loading]);
+    if (user) history.replace("/");
+    if (error) console.log(error);
+  }, [user, loading, history, error]);
   return (
     <div className="register">
       <div className="register__container">

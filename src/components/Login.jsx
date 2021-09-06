@@ -47,7 +47,7 @@ function Login() {
       return;
     }
     if (user) history.replace("/");
-  }, [user, loading]);
+  }, [user, loading, history]);
 
   useEffect(() => {
     if (error) {

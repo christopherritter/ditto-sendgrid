@@ -1,4 +1,7 @@
 import React, { useState, useEffect, forwardRef } from "react";
+import { functions } from "../firebase";
+
+import MessageDataService from "../services/message.service";
 
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -27,129 +30,146 @@ const useStyles = makeStyles((theme) => ({
   },
   button: {
     marginBottom: "1.5em",
-  }
+  },
 }));
 
 const initialFormState = { recipient: "", subject: "", body: "" };
 
-const WriteEmail = forwardRef(({ user, createTemplate, selectedTemplate }, ref) => {
-  const classes = useStyles();
+const WriteEmail = forwardRef(
+  ({ user, createTemplate, selectedTemplate }, ref) => {
+    const classes = useStyles();
 
-  const [formData, setFormData] = useState(initialFormState);
+    const [formData, setFormData] = useState(initialFormState);
 
-  function onCreateTemplate() {
-    createTemplate(formData);
-    setFormData(initialFormState);
-  }
+    function onCreateTemplate() {
+      // createTemplate(formData);
 
-  async function sendEmail() {
-    window.location.href = `mailto:${formData.recipient}?subject=${formData.subject}&body=${formData.body}`;
-  }
-
-  function handleRecipientInput (e) {
-    const { value } = e.target;
-    const recipient =  value.slice(0, 50);
-
-    setFormData({ ...formData, recipient })
-  }
-
-  function handleSubjectInput (e) {
-    const { value } = e.target;
-    const subject =  value.slice(0, 50);
-
-    setFormData({ ...formData, subject })
-  }
-
-  function handleBodyInput (e) {
-    const { value } = e.target;
-    const body =  value.slice(0, 1400);
-
-    setFormData({ ...formData, body })
-  }
-
-  useEffect(() => {
-    if (selectedTemplate) {
-      setFormData(selectedTemplate);
+      MessageDataService.create(formData)
+      .then(() => {
+        console.log("Created new message successfully!");
+        setFormData(initialFormState);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
     }
-  }, [selectedTemplate]);
 
-  return (
-    <div ref={ref} className={classes.root}>
-      <Container>
-        <Grid container>
-          <Grid item xs={12}>
-            <Typography variant="h3" className={classes.header}>
-              Write an Email
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <form noValidate autoComplete="off">
-              <Grid container>
-                <Grid item xs={12}>
-                  <TextField
-                    className={classes.textfield}
-                    label="Recipient"
-                    variant="outlined"
-                    fullWidth
-                    onChange={handleRecipientInput}
-                    placeholder="Recipient"
-                    value={formData.recipient}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    className={classes.textfield}
-                    label="Subject"
-                    variant="outlined"
-                    fullWidth
-                    onChange={handleSubjectInput}
-                    placeholder="Subject"
-                    value={formData.subject}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    className={classes.textfield}
-                    label="Body"
-                    variant="outlined"
-                    fullWidth
-                    multiline
-                    onChange={handleBodyInput}
-                    placeholder="Body of the email."
-                    value={formData.body}
-                    helperText="Maximum of 1400 characters allowed"
-                    rows={12}
-                  />
-                </Grid>
-                {user ? (
-                  <Grid item xs={6}>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={onCreateTemplate}
-                      className={classes.button}
-                    >
-                      Save Template
-                    </Button>
+    async function sendEmail() {
+      // window.location.href = `mailto:${formData.recipient}?subject=${formData.subject}&body=${formData.body}`;
+      const callable = functions.httpsCallable("genericEmail");
+      return callable({
+        text: "Sending email with React and SendGrid is fun!",
+        subject: "Email from React",
+      }).then(console.log);
+    }
+
+    function handleRecipientInput(e) {
+      const { value } = e.target;
+      const recipient = value.slice(0, 50);
+
+      setFormData({ ...formData, recipient });
+    }
+
+    function handleSubjectInput(e) {
+      const { value } = e.target;
+      const subject = value.slice(0, 50);
+
+      setFormData({ ...formData, subject });
+    }
+
+    function handleBodyInput(e) {
+      const { value } = e.target;
+      const body = value.slice(0, 1400);
+
+      setFormData({ ...formData, body });
+    }
+
+    useEffect(() => {
+      if (selectedTemplate) {
+        setFormData(selectedTemplate);
+      }
+    }, [selectedTemplate]);
+
+    return (
+      <div ref={ref} className={classes.root}>
+        <Container>
+          <Grid container>
+            <Grid item xs={12}>
+              <Typography variant="h3" className={classes.header}>
+                Write an Email
+              </Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <form noValidate autoComplete="off">
+                <Grid container>
+                  <Grid item xs={12}>
+                    <TextField
+                      className={classes.textfield}
+                      label="Recipient"
+                      variant="outlined"
+                      fullWidth
+                      onChange={handleRecipientInput}
+                      placeholder="Recipient"
+                      value={formData.recipient}
+                    />
                   </Grid>
-                ) : null}
-                <Grid item xs={6}>
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    onClick={sendEmail}
-                    className={classes.button}
-                  >
-                    Send Email
-                  </Button>
+                  <Grid item xs={12}>
+                    <TextField
+                      className={classes.textfield}
+                      label="Subject"
+                      variant="outlined"
+                      fullWidth
+                      onChange={handleSubjectInput}
+                      placeholder="Subject"
+                      value={formData.subject}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      className={classes.textfield}
+                      label="Body"
+                      variant="outlined"
+                      fullWidth
+                      multiline
+                      onChange={handleBodyInput}
+                      placeholder="Body of the email."
+                      value={formData.body}
+                      helperText="Maximum of 1400 characters allowed"
+                      rows={12}
+                    />
+                  </Grid>
+                  {user ? (
+                    <>
+                      <Grid item xs={6}>
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          onClick={onCreateTemplate}
+                          className={classes.button}
+                        >
+                          Save Template
+                        </Button>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Button
+                          variant="contained"
+                          color="secondary"
+                          onClick={() => sendEmail()}
+                          className={classes.button}
+                        >
+                          Send Email
+                        </Button>
+                      </Grid>
+                    </>
+                  ) : null}
                 </Grid>
-              </Grid>
-            </form>
+              </form>
+            </Grid>
           </Grid>
-        </Grid>
-      </Container>
-    </div>
-  );
-});
+        </Container>
+      </div>
+    );
+  }
+);
 
 export default WriteEmail;

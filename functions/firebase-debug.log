@@ -1,0 +1,62 @@
+[debug] [2021-09-06T12:55:42.362Z] ----------------------------------------------------------------------
+[debug] [2021-09-06T12:55:42.364Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\chris\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js functions:shell
+[debug] [2021-09-06T12:55:42.365Z] CLI Version:   9.17.0
+[debug] [2021-09-06T12:55:42.365Z] Platform:      win32
+[debug] [2021-09-06T12:55:42.365Z] Node Version:  v14.16.1
+[debug] [2021-09-06T12:55:42.366Z] Time:          Mon Sep 06 2021 08:55:42 GMT-0400 (Eastern Daylight Time)
+[debug] [2021-09-06T12:55:42.366Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2021-09-06T12:55:42.435Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-09-06T12:55:42.435Z] > authorizing via signed-in user (christopherritter@gmail.com)
+[debug] [2021-09-06T12:55:42.435Z] [iam] checking project ditto-sendgrid for permissions ["firebase.projects.get"]
+[debug] [2021-09-06T12:55:42.438Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/ditto-sendgrid:testIamPermissions  
+ {"permissions":["firebase.projects.get"]}
+[debug] [2021-09-06T12:55:42.771Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Mon, 06 Sep 2021 12:55:43 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=94","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-09-06T12:55:42.811Z] [functions] Using node@14 from host.
+[debug] [2021-09-06T12:55:42.812Z] defaultcredentials: writing to file C:\Users\chris\AppData\Roaming\firebase\christopherritter_gmail_com_application_default_credentials.json
+[debug] [2021-09-06T12:55:42.816Z] DEBUG: Setting GAC to C:\Users\chris\AppData\Roaming\firebase\christopherritter_gmail_com_application_default_credentials.json
+[debug] [2021-09-06T12:55:42.817Z] > refreshing access token with scopes: []
+[debug] [2021-09-06T12:55:42.818Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2021-09-06T12:55:43.053Z] <<< HTTP RESPONSE 200 {"cache-control":"no-cache, no-store, max-age=0, must-revalidate","date":"Mon, 06 Sep 2021 12:55:44 GMT","pragma":"no-cache","expires":"Mon, 01 Jan 1990 00:00:00 GMT","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-09-06T12:55:43.071Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/ditto-sendgrid/adminSdkConfig [none]
+[debug] [2021-09-06T12:55:43.427Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/ditto-sendgrid/adminSdkConfig 200
+[debug] [2021-09-06T12:55:43.427Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/ditto-sendgrid/adminSdkConfig {"projectId":"ditto-sendgrid","storageBucket":"ditto-sendgrid.appspot.com","locationId":"us-central"}
+[debug] [2021-09-06T12:55:43.443Z] [functions] Watching "D:\Projects\Open Springboro\Ditto\Source\ditto-sendgrid\functions" for Cloud Functions...
+[debug] [2021-09-06T12:55:43.465Z] DEBUG: [worker-pool] addWorker(~diagnostic~)
+[debug] [2021-09-06T12:55:43.465Z] DEBUG: [worker-pool] Adding worker with key ~diagnostic~, total=1
+[debug] [2021-09-06T12:55:43.465Z] DEBUG: [worker-pool] submitWork(triggerId=)
+[debug] [2021-09-06T12:55:43.465Z] DEBUG: [worker-~diagnostic~-46946fee-ae9c-4447-b30b-ce79f68508e5]: Assigning socketPath: \\?\pipe\D:\Projects\Open Springboro\Ditto\Source\ditto-sendgrid\functions\12088
+[debug] [2021-09-06T12:55:43.466Z] DEBUG: [worker-~diagnostic~-46946fee-ae9c-4447-b30b-ce79f68508e5]: BUSY
+[debug] [2021-09-06T12:55:44.055Z] DEBUG: [runtime-status] [12088] Functions runtime initialized. {"cwd":"D:\\Projects\\Open Springboro\\Ditto\\Source\\ditto-sendgrid\\functions","node_version":"14.16.1"}
+[debug] [2021-09-06T12:55:44.058Z] DEBUG: [runtime-status] [12088] Disabled runtime features: undefined
+[debug] [2021-09-06T12:55:44.062Z] DEBUG: [runtime-status] [12088] Resolved module firebase-admin {"declared":true,"installed":true,"version":"9.11.1","resolution":"D:\\Projects\\Open Springboro\\Ditto\\Source\\ditto-sendgrid\\functions\\node_modules\\firebase-admin\\lib\\index.js"}
+[debug] [2021-09-06T12:55:44.068Z] DEBUG: [runtime-status] [12088] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.15.5","resolution":"D:\\Projects\\Open Springboro\\Ditto\\Source\\ditto-sendgrid\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2021-09-06T12:55:44.072Z] DEBUG: [runtime-status] [12088] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.15.5","resolution":"D:\\Projects\\Open Springboro\\Ditto\\Source\\ditto-sendgrid\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2021-09-06T12:55:44.074Z] DEBUG: [runtime-status] [12088] Outgoing network have been stubbed. [{"name":"http","status":"mocked"},{"name":"http","status":"mocked"},{"name":"https","status":"mocked"},{"name":"https","status":"mocked"},{"name":"net","status":"mocked"}]
+[debug] [2021-09-06T12:55:44.075Z] DEBUG: [runtime-status] [12088] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.15.5","resolution":"D:\\Projects\\Open Springboro\\Ditto\\Source\\ditto-sendgrid\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2021-09-06T12:55:44.134Z] DEBUG: [runtime-status] [12088] Checked functions.config() {"config":{}}
+[debug] [2021-09-06T12:55:44.134Z] DEBUG: [runtime-status] [12088] firebase-functions has been stubbed. {"functionsResolution":{"declared":true,"installed":true,"version":"3.15.5","resolution":"D:\\Projects\\Open Springboro\\Ditto\\Source\\ditto-sendgrid\\functions\\node_modules\\firebase-functions\\lib\\index.js"}}
+[debug] [2021-09-06T12:55:44.135Z] DEBUG: [runtime-status] [12088] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.15.5","resolution":"D:\\Projects\\Open Springboro\\Ditto\\Source\\ditto-sendgrid\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2021-09-06T12:55:44.137Z] DEBUG: [runtime-status] [12088] Resolved module firebase-admin {"declared":true,"installed":true,"version":"9.11.1","resolution":"D:\\Projects\\Open Springboro\\Ditto\\Source\\ditto-sendgrid\\functions\\node_modules\\firebase-admin\\lib\\index.js"}
+[debug] [2021-09-06T12:55:44.138Z] DEBUG: [runtime-status] [12088] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.15.5","resolution":"D:\\Projects\\Open Springboro\\Ditto\\Source\\ditto-sendgrid\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2021-09-06T12:55:44.138Z] DEBUG: [runtime-status] [12088] firebase-admin has been stubbed. {"adminResolution":{"declared":true,"installed":true,"version":"9.11.1","resolution":"D:\\Projects\\Open Springboro\\Ditto\\Source\\ditto-sendgrid\\functions\\node_modules\\firebase-admin\\lib\\index.js"}}
+[debug] [2021-09-06T12:55:44.141Z] DEBUG: [runtime-status] [12088] initializeApp(DEFAULT) {"storageBucket":"ditto-sendgrid.appspot.com","projectId":"ditto-sendgrid"}
+[warn] !  functions: The Cloud Firestore emulator is not running, so calls to Firestore will affect production. {"metadata":{"emulator":{"name":"functions"},"message":"The Cloud Firestore emulator is not running, so calls to Firestore will affect production."}}
+[warn] !  It looks like you're trying to access functions.config().sendgrid but there is no value there. You can learn more about setting up config here: https://firebase.google.com/docs/functions/local-emulator {"metadata":{"emulator":{"name":"functions"},"message":"It looks like you're trying to access functions.config().sendgrid but there is no value there. You can learn more about setting up config here: https://firebase.google.com/docs/functions/local-emulator"}}
+[warn] !  TypeError: Cannot read property 'key' of undefined
+    at Object.<anonymous> (D:\Projects\Open Springboro\Ditto\Source\ditto-sendgrid\functions\lib\index.js:18:44)
+    at Module._compile (internal/modules/cjs/loader.js:1063:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1092:10)
+    at Module.load (internal/modules/cjs/loader.js:928:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:769:14)
+    at Module.require (internal/modules/cjs/loader.js:952:19)
+    at require (internal/modules/cjs/helpers.js:88:18)
+    at initializeRuntime (C:\Users\chris\AppData\Roaming\npm\node_modules\firebase-tools\lib\emulator\functionsEmulatorRuntime.js:715:29)
+    at processTicksAndRejections (internal/process/task_queues.js:93:5)
+    at async handleMessage (C:\Users\chris\AppData\Roaming\npm\node_modules\firebase-tools\lib\emulator\functionsEmulatorRuntime.js:759:20) {"metadata":{"emulator":{"name":"functions"},"message":"TypeError: Cannot read property 'key' of undefined\n    at Object.<anonymous> (D:\\Projects\\Open Springboro\\Ditto\\Source\\ditto-sendgrid\\functions\\lib\\index.js:18:44)\n    at Module._compile (internal/modules/cjs/loader.js:1063:30)\n    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1092:10)\n    at Module.load (internal/modules/cjs/loader.js:928:32)\n    at Function.Module._load (internal/modules/cjs/loader.js:769:14)\n    at Module.require (internal/modules/cjs/loader.js:952:19)\n    at require (internal/modules/cjs/helpers.js:88:18)\n    at initializeRuntime (C:\\Users\\chris\\AppData\\Roaming\\npm\\node_modules\\firebase-tools\\lib\\emulator\\functionsEmulatorRuntime.js:715:29)\n    at processTicksAndRejections (internal/process/task_queues.js:93:5)\n    at async handleMessage (C:\\Users\\chris\\AppData\\Roaming\\npm\\node_modules\\firebase-tools\\lib\\emulator\\functionsEmulatorRuntime.js:759:20)"}}
+[warn] !  We were unable to load your functions code. (see above)
+   - It appears your code is written in Typescript, which must be compiled before emulation.
+   - You may be able to run "npm run build" in your functions directory to resolve this. {"metadata":{"emulator":{"name":"functions"}}}
+[debug] [2021-09-06T12:55:44.261Z] DEBUG: [worker-~diagnostic~-46946fee-ae9c-4447-b30b-ce79f68508e5]: exited
+[debug] [2021-09-06T12:55:44.262Z] DEBUG: [worker-~diagnostic~-46946fee-ae9c-4447-b30b-ce79f68508e5]: FINISHED

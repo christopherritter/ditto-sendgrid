@@ -22,7 +22,7 @@ const useStyles = makeStyles(() => ({
 
 const Navbar = (props) => {
   const classes = useStyles();
-  const { loggedIn, signOut } = props;
+  const { loggedIn } = props;
 
   return (
     <div className={classes.root}>
