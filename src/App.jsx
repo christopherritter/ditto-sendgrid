@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -74,7 +74,7 @@ function App() {
   const scrollToWriteEmail = () =>
     writeEmailRef.current.scrollIntoView({ behavior: "smooth" });
 
-  // const [selectedTemplate, setSelectedTemplate] = useState(null);
+  const [selectedTemplate, setSelectedTemplate] = useState(null);
 
   // async function createTemplate(formData) {
   //   console.log("createTemplate", formData);
@@ -133,14 +133,14 @@ function App() {
               ref={selectTemplateRef}
               user={user}
               // templates={templates}
-              // selectTemplate={(template) => setSelectedTemplate(template)}
+              selectTemplate={(template) => setSelectedTemplate(template)}
               // deleteTemplate={(template) => deleteTemplate(template)}
               writeEmail={scrollToWriteEmail}
             />
             <WriteEmail
               ref={writeEmailRef}
               user={user}
-              // selectedTemplate={selectedTemplate}
+              selectedTemplate={selectedTemplate}
               // createTemplate={(formData) => createTemplate(formData)}
             />
           </Route>
