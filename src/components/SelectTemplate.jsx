@@ -42,7 +42,9 @@ const SelectTemplate = forwardRef(({ selectTemplate, user, deleteTemplate, write
     const snapshot = await TemplateDataService.getAll().get();
     const results = [];
     snapshot.forEach(doc => {
-      results.push(doc.data());
+      let result = doc.data();
+      result.id = doc.id;
+      results.push(result);
     });
     setTemplates(results);
   }

@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./firebase";
 
+import TemplateDataService from "./services/template.service";
+
 import Login from "./components/Login.jsx";
 import Register from "./components/Register.jsx";
 import Reset from "./components/Reset.jsx";
@@ -66,6 +68,8 @@ function App() {
   //   setTemplates(apiData.data.listTemplates.items);
   // }
 
+  const [templates, setTemplates] = React.useState([]);
+
   const selectTemplateRef = useRef(null);
   const writeEmailRef = useRef(null);
 
@@ -87,34 +91,24 @@ function App() {
   //   setTemplates([...templates, formData]);
   // }
 
-  // async function deleteTemplate({ id }) {
-  //   const newTemplatesArray = templates.filter(
-  //     (template) => template.id !== id
-  //   );
-  //   setTemplates(newTemplatesArray);
-  //   await API.graphql({
-  //     query: deleteTemplateMutation,
-  //     variables: {
-  //       input: {
-  //         id,
-  //       },
-  //     },
-  //   });
-  // }
+  async function deleteTemplate({ id }) {
+    TemplateDataService.delete(id)
+    .then(() => {
+      getTemplates();
+    })
+    .catch((e) => {
+      console.log(e);
+    });
+  }
 
-  // const signOut = async () => {
-  //   try {
-  //     await Auth.signOut();
-  //     console.log("Successfully signed out");
-  //     setLoggedIn(false);
-  //   } catch (error) {
-  //     console.log("error signing out", error);
-  //   }
-  // };
-
-  // function signedIn() {
-  //   setLoggedIn(true);
-  // }
+  async function getTemplates() {
+    const snapshot = await TemplateDataService.getAll().get();
+    const results = [];
+    snapshot.forEach(doc => {
+      results.push(doc.data());
+    });
+    setTemplates(results);
+  }
 
   return (
     <div className="App">
@@ -134,7 +128,7 @@ function App() {
               user={user}
               // templates={templates}
               selectTemplate={(template) => setSelectedTemplate(template)}
-              // deleteTemplate={(template) => deleteTemplate(template)}
+              deleteTemplate={(template) => deleteTemplate(template)}
               writeEmail={scrollToWriteEmail}
             />
             <WriteEmail
