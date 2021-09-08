@@ -26,7 +26,7 @@ const facebookProvider = new firebase.auth.FacebookAuthProvider()
 
 const signInWithFacebook = async () => {
   try {
-    const res = await auth.signInWithPopup(facebookProvider);
+    const res = await auth.signInWithRedirect(facebookProvider);
     const user = res.user;
     const query = await db
       .collection("users")
