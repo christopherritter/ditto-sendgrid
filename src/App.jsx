@@ -126,7 +126,7 @@ function App() {
             <SelectTemplate
               ref={selectTemplateRef}
               user={user}
-              // templates={templates}
+              templates={templates}
               selectTemplate={(template) => setSelectedTemplate(template)}
               deleteTemplate={(template) => deleteTemplate(template)}
               writeEmail={scrollToWriteEmail}
