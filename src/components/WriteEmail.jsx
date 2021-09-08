@@ -57,6 +57,7 @@ const WriteEmail = forwardRef(
     async function sendEmail() {
       const callable = functions.httpsCallable("officialEmail");
       return callable({
+        recipient_email: formData.recipient_email,
         text: formData.body,
         subject: formData.subject,
       }).then(setFormData(initialFormState));
@@ -71,14 +72,14 @@ const WriteEmail = forwardRef(
 
     function handleSubjectInput(e) {
       const { value } = e.target;
-      const subject = value.slice(0, 50);
+      const subject = value;
 
       setFormData({ ...formData, subject });
     }
 
     function handleBodyInput(e) {
       const { value } = e.target;
-      const body = value.slice(0, 1400);
+      const body = value;
 
       setFormData({ ...formData, body });
     }
@@ -133,7 +134,6 @@ const WriteEmail = forwardRef(
                       onChange={handleBodyInput}
                       placeholder="Body of the email."
                       value={formData.body}
-                      helperText="Maximum of 1400 characters allowed"
                       rows={12}
                     />
                   </Grid>
