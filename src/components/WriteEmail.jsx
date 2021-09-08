@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
 const initialFormState = { recipient: "", subject: "", body: "" };
 
 const WriteEmail = forwardRef(
-  ({ user, createTemplate, selectedTemplate }, ref) => {
+  ({ user, selectedTemplate }, ref) => {
     const classes = useStyles();
 
     const [formData, setFormData] = useState(initialFormState);
@@ -57,9 +57,9 @@ const WriteEmail = forwardRef(
     async function sendEmail() {
       const callable = functions.httpsCallable("genericEmail");
       return callable({
-        text: "Sending email with React and SendGrid is fun!",
-        subject: "Email from React",
-      }).then(console.log);
+        text: formData.body,
+        subject: formData.subject,
+      }).then(setFormData(initialFormState));
     }
 
     function handleRecipientInput(e) {
