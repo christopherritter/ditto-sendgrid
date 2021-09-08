@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Typography } from "@material-ui/core";
 
@@ -22,7 +23,7 @@ const Footer = () => {
       <Grid container>
         <Grid item xs={12}>
           <Typography variant="body2" className={classes.footer}>
-            Another project created by <a href="http://www.christopherritter.com/" target="_blank" rel="noreferrer">Christopher Ritter</a>. < br />
+            Another project created by <a href="http://www.christopherritter.com/" target="_blank" rel="noreferrer">Christopher Ritter</a>. <Link to="/privacy">Privacy Policy</Link> < br />
             Part of the <a href="http://www.openspringboro.com/" target="_blank" rel="noreferrer">Open Springboro</a> project.
             Artwork by <a href="https://www.vecteezy.com/members/imajin-noasking" target="_blank" rel="noreferrer">imajin noasking</a>.
           </Typography>
