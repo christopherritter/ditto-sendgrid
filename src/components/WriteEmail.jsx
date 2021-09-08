@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const initialFormState = { recipient: "", subject: "", body: "" };
+const initialFormState = { recipient_email: "", subject: "", body: "" };
 
 const WriteEmail = forwardRef(
   ({ user, selectedTemplate }, ref) => {
@@ -55,7 +55,7 @@ const WriteEmail = forwardRef(
     }
 
     async function sendEmail() {
-      const callable = functions.httpsCallable("genericEmail");
+      const callable = functions.httpsCallable("officialEmail");
       return callable({
         text: formData.body,
         subject: formData.subject,
@@ -64,9 +64,9 @@ const WriteEmail = forwardRef(
 
     function handleRecipientInput(e) {
       const { value } = e.target;
-      const recipient = value.slice(0, 50);
+      const recipient_email = value;
 
-      setFormData({ ...formData, recipient });
+      setFormData({ ...formData, recipient_email });
     }
 
     function handleSubjectInput(e) {
@@ -109,7 +109,7 @@ const WriteEmail = forwardRef(
                       fullWidth
                       onChange={handleRecipientInput}
                       placeholder="Recipient"
-                      value={formData.recipient}
+                      value={formData.recipient_email}
                     />
                   </Grid>
                   <Grid item xs={12}>

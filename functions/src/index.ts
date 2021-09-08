@@ -68,6 +68,33 @@ export const genericEmail = functions.https.onCall(async (data, context) => {
 
 });
 
+export const officialEmail = functions.https.onCall(async (data, context) => {
+
+  // @ts-ignore
+  if (!context.auth && !context.auth.token.email) {
+      throw new functions.https.HttpsError('failed-precondition', 'Must be logged with an email address');
+  }
+
+  const msg = {
+      // @ts-ignore
+      to: data.recipient_email,
+      from: 'ditto@openspringboro.com',
+      templateId: "d-529b6e475e444e97b3f20ff3671dbc84",
+      dynamic_template_data: {
+          subject: data.subject,
+          name: data.text,
+      },
+  };
+
+  await sgMail.send(msg);
+
+  // Handle errors here
+
+  // Response must be JSON serializable
+  return { success: true };
+
+});
+
 // Emails the author when a new comment is added to a post
 export const newComment = functions.firestore.document('posts/{postId}/comments/{commentId}').onCreate( async (change, context) => {
 
