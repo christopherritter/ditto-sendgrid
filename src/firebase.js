@@ -26,15 +26,12 @@ const facebookProvider = new firebase.auth.FacebookAuthProvider()
 
 const signInWithFacebook = async () => {
   try {
-    const res = await auth.signInWithRedirect(facebookProvider);
+    const res = await auth.signInWithPopup(facebookProvider);
     const user = res.user;
     const query = await db
       .collection("users")
       .where("uid", "==", user.uid)
       .get();
-    console.log("result", res);
-    console.log("user", user);
-    console.log("query", query);
     if (query.docs.length === 0) {
       await db.collection("users").add({
         uid: user.uid,
