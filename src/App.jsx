@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -14,11 +14,12 @@ import Navbar from "./components/Navbar.jsx";
 import Jumbotron from "./components/Jumbotron.jsx";
 import SelectTemplate from "./components/SelectTemplate.jsx";
 import WriteEmail from "./components/WriteEmail.jsx";
+import Profile from "./components/Profile.jsx";
 import PrivacyPolicy from "./components/Privacy.jsx";
 import Footer from "./components/Footer.jsx";
 
 function App() {
-  const [user] = useAuthState(auth);
+  const [user, error] = useAuthState(auth);
   const [templates, setTemplates] = React.useState([]);
 
   const selectTemplateRef = useRef(null);
@@ -31,20 +32,26 @@ function App() {
 
   const [selectedTemplate, setSelectedTemplate] = useState(null);
 
+  useEffect(() => {
+    if (error) {
+      console.log(error);
+    }
+  }, [error]);
+
   async function deleteTemplate({ id }) {
     TemplateDataService.delete(id)
-    .then(() => {
-      getTemplates();
-    })
-    .catch((e) => {
-      console.log(e);
-    });
+      .then(() => {
+        getTemplates();
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   }
 
   async function getTemplates() {
     const snapshot = await TemplateDataService.getAll().get();
     const results = [];
-    snapshot.forEach(doc => {
+    snapshot.forEach((doc) => {
       results.push(doc.data());
     });
     setTemplates(results);
@@ -81,6 +88,7 @@ function App() {
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/reset" component={Reset} />
+          <Route exact path="/profile" component={Profile} />
           <Route exact path="/privacy" component={PrivacyPolicy} />
         </Switch>
         <Footer />

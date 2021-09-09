@@ -46,7 +46,12 @@ function Login() {
       // maybe trigger a loading screen
       return;
     }
-    if (user) history.replace("/");
+    if (user && user.email === null) {
+      history.replace("/profile");
+    } else if (user) {
+      console.log(user)
+      history.replace("/");
+    }
   }, [user, loading, history]);
 
   useEffect(() => {
