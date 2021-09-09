@@ -32,6 +32,9 @@ const signInWithFacebook = async () => {
       .collection("users")
       .where("uid", "==", user.uid)
       .get();
+    console.log("result", res);
+    console.log("user", user);
+    console.log("query", query);
     if (query.docs.length === 0) {
       await db.collection("users").add({
         uid: user.uid,

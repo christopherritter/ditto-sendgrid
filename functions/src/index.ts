@@ -75,6 +75,9 @@ export const officialEmail = functions.https.onCall(async (data, context) => {
       throw new functions.https.HttpsError('failed-precondition', 'Must be logged with an email address');
   }
 
+  const textArr = data.text.split(/\r?\n/);
+  const htmlText = textArr.join('<br>');
+
   const msg = {
       // @ts-ignore
       to: data.recipient_email,
@@ -82,7 +85,7 @@ export const officialEmail = functions.https.onCall(async (data, context) => {
       templateId: "d-529b6e475e444e97b3f20ff3671dbc84",
       dynamic_template_data: {
           subject: data.subject,
-          text: data.text,
+          text: htmlText,
       },
   };
 
