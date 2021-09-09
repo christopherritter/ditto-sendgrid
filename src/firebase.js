@@ -35,7 +35,6 @@ const signInWithFacebook = async () => {
       .where("uid", "==", user.uid)
       .get();
     if (query.docs.length === 0) {
-      console.log("user", user);
       await db.collection("users").add({
         uid: user.uid,
         name: user.displayName,
@@ -45,7 +44,6 @@ const signInWithFacebook = async () => {
     }
   } catch (err) {
     console.error(err);
-    alert(err.message);
   }
 };
 
@@ -54,7 +52,6 @@ const signInWithEmailAndPassword = async (email, password) => {
     await auth.signInWithEmailAndPassword(email, password);
   } catch (err) {
     console.error(err);
-    alert(err.message);
   }
 };
 
@@ -70,7 +67,6 @@ const registerWithEmailAndPassword = async (name, email, password) => {
     });
   } catch (err) {
     console.error(err);
-    alert(err.message);
   }
 };
 
@@ -80,7 +76,6 @@ const sendPasswordResetEmail = async (email) => {
     alert("Password reset link sent!");
   } catch (err) {
     console.error(err);
-    alert(err.message);
   }
 };
 
