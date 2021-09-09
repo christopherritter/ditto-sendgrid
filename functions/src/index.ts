@@ -82,6 +82,7 @@ export const officialEmail = functions.https.onCall(async (data, context) => {
       // @ts-ignore
       to: data.recipient_email,
       from: 'ditto@openspringboro.com',
+      replyTo: data.reply_to,
       templateId: "d-529b6e475e444e97b3f20ff3671dbc84",
       dynamic_template_data: {
           subject: data.subject,

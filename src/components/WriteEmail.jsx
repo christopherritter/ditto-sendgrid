@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const initialFormState = { recipient_email: "", subject: "", body: "" };
+const initialFormState = { recipient_email: "", reply_to: "", subject: "", body: "" };
 
 const WriteEmail = forwardRef(({ user, selectedTemplate }, ref) => {
   const classes = useStyles();
@@ -60,6 +60,7 @@ const WriteEmail = forwardRef(({ user, selectedTemplate }, ref) => {
     const callable = functions.httpsCallable("officialEmail");
     return callable({
       recipient_email: formData.recipient_email,
+      reply_to: userProfile.email,
       text: formData.body,
       subject: formData.subject,
     }).then(setFormData(initialFormState));
