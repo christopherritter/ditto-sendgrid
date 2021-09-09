@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#fff",
     marginTop: "0.5em",
     marginBottom: "0.25em",
+    textAlign: "center",
   },
   textfield: {
     borderRadius: 4,

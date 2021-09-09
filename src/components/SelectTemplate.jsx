@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#15151d",
     marginTop: "0.5em",
     marginBottom: "0.25em",
+    textAlign: "center",
   },
   letter: {
     margin: "1em",
