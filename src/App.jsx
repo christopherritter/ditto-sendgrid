@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -19,7 +19,7 @@ import PrivacyPolicy from "./components/Privacy.jsx";
 import Footer from "./components/Footer.jsx";
 
 function App() {
-  const [user, error] = useAuthState(auth);
+  const [user] = useAuthState(auth);
   const [templates, setTemplates] = React.useState([]);
 
   const selectTemplateRef = useRef(null);
@@ -32,19 +32,13 @@ function App() {
 
   const [selectedTemplate, setSelectedTemplate] = useState(null);
 
-  useEffect(() => {
-    if (error) {
-      console.log(error);
-    }
-  }, [error]);
-
   async function deleteTemplate({ id }) {
     TemplateDataService.delete(id)
       .then(() => {
         getTemplates();
       })
       .catch((e) => {
-        console.log(e);
+        console.log("catch:", e);
       });
   }
 

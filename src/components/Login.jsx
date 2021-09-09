@@ -46,10 +46,7 @@ function Login() {
       // maybe trigger a loading screen
       return;
     }
-    if (user && user.email === null) {
-      history.replace("/profile");
-    } else if (user) {
-      console.log(user)
+    if (user) {
       history.replace("/");
     }
   }, [user, loading, history]);
