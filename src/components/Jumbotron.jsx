@@ -1,6 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Container, Grid, Typography, Button } from "@material-ui/core";
+import { Container, Grid, Typography, Button, Hidden } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -8,6 +8,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#36207f",
     color: "#fff",
     textAlign: "center",
+    padding: "1rem 0 2rem 0",
   },
   header: {
     color: "#fff",
@@ -17,10 +18,15 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "1em",
   },
   button: {
+    "&:hover": {
+      backgroundColor: "#fff",
+    },
     backgroundColor: "#ffbd27",
     color: "#15151d",
     marginTop: "2em",
-    marginRight: "1em"
+    marginRight: "1em",
+    paddingLeft: "2em",
+    paddingRight: "2em",
   }
 }));
 
@@ -32,7 +38,7 @@ const JumbotronComponent = (props) => {
     <div className={classes.root}>
       <Container>
         <Grid container alignItems="center">
-          <Grid item sm={6} md={5}>
+          <Grid item sm={12} md={6}>
             <Typography variant="h2" className={classes.header}>
               Amplify your voice
             </Typography>
@@ -42,12 +48,15 @@ const JumbotronComponent = (props) => {
             <Button className={classes.button} onClick={writeEmail}>Write an Email</Button>
             <Button className={classes.button} onClick={selectTemplate}>Select a Template</Button>
           </Grid>
-          <Grid item sm={6} md={7}>
-            <img
-              src={process.env.PUBLIC_URL + "/img/megaphone.svg"}
-              alt="Megaphone"
-            />
-          </Grid>
+          <Hidden smDown>
+            <Grid item md={6}>
+              <img
+                className={classes.image}
+                src={process.env.PUBLIC_URL + "/img/megaphone.svg"}
+                alt="Megaphone"
+              />
+            </Grid>
+          </Hidden>
         </Grid>
       </Container>
     </div>

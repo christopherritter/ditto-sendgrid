@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     backgroundColor: "#36207f",
     color: "#fff",
+    paddingBottom: "2rem",
   },
   header: {
     color: "#fff",
