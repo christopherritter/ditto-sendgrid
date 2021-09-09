@@ -23,10 +23,12 @@ const storage = firebase.storage();
 const functions = firebase.functions();
 
 const facebookProvider = new firebase.auth.FacebookAuthProvider()
+facebookProvider.addScope('email');
+facebookProvider.addScope('public_profile');
 
 const signInWithFacebook = async () => {
   try {
-    const res = await auth.signInWithPopup(facebookProvider);
+    const res = await auth.signInWithRedirect(facebookProvider);
     const user = res.user;
     const query = await db
       .collection("users")
