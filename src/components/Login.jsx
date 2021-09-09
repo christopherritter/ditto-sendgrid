@@ -10,9 +10,11 @@ import { makeStyles } from "@material-ui/core/styles";
 import {
   Container,
   Grid,
+  Typography,
   TextField,
   Button,
 } from "@material-ui/core";
+import FacebookIcon from '@material-ui/icons/Facebook';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -29,9 +31,22 @@ const useStyles = makeStyles((theme) => ({
     width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(1),
   },
+  facebookButton: {
+    color: "#fff",
+    backgroundColor: "#4267B2",
+  },
+  theBigOr: {
+    fontSize: "0.75 rem",
+    textAlign: "center",
+    marginTop: "1rem",
+  },
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  helpText: {
+    textAlign: "center",
+    marginBottom: "8rem",
+  }
 }));
 
 function Login() {
@@ -60,17 +75,36 @@ function Login() {
   return (
     <Container component="main" maxWidth="xs">
       <div className={classes.paper}>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <img
+              width="100%"
+              src={process.env.PUBLIC_URL + "/img/ditto_text-logo.png"}
+              alt="Ditto logo"
+            />
+          </Grid>
+        </Grid>
         <form className={classes.form} noValidate>
+          <Button
+            className={classes.facebookButton}
+            startIcon={<FacebookIcon />}
+            onClick={signInWithFacebook}
+            variant="contained"
+            size="large"
+            fullWidth
+          >
+            Login with Facebook
+          </Button>
+          <Typography variant="h6" className={classes.theBigOr}>or</Typography>
           <TextField
             variant="outlined"
             margin="normal"
             required
-            fullWidth
             id="email"
             label="Email"
             name="email"
-            autoFocus
             onChange={(e) => setEmail(e.target.value)}
+            fullWidth
           />
           <TextField
             variant="outlined"
@@ -84,23 +118,22 @@ function Login() {
             onChange={(e) => setPassword(e.target.value)}
           />
           <Button
-            className="login__btn"
+            className={classes.submit}
+            disabled={password.length < 5}
             onClick={() => signInWithEmailAndPassword(email, password)}
+            fullWidth
+            variant="contained"
+            size="large"
           >
             Login
           </Button>
-          <Button
-            className="login__btn login__facebook"
-            onClick={signInWithFacebook}
-          >
-            Login with Facebook
-          </Button>
-          <Grid container>
+
+          <Grid container className={classes.helpText}>
             <Grid item sm={12}>
-            <Link to="/reset">Forgot Password</Link>
+              <Link to="/reset">Forgot Password</Link>
             </Grid>
             <Grid item sm={12}>
-            Don't have an account? <Link to="/register">Register</Link> now.
+              Don't have an account? <Link to="/register">Register</Link> now.
             </Grid>
           </Grid>
         </form>
