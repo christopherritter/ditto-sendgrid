@@ -6,7 +6,8 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     backgroundColor: "#36207f",
-    color: "#fff"
+    color: "#fff",
+    textAlign: "center",
   },
   header: {
     color: "#fff",
