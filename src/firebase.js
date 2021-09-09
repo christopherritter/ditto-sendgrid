@@ -22,19 +22,20 @@ const auth = firebase.auth();
 const storage = firebase.storage();
 const functions = firebase.functions();
 
-const facebookProvider = new firebase.auth.FacebookAuthProvider()
+const facebookProvider = new firebase.auth.FacebookAuthProvider();
 facebookProvider.addScope('email');
 facebookProvider.addScope('public_profile');
 
 const signInWithFacebook = async () => {
   try {
-    const res = await auth.signInWithRedirect(facebookProvider);
+    const res = await auth.signInWithPopup(facebookProvider);
     const user = res.user;
     const query = await db
       .collection("users")
       .where("uid", "==", user.uid)
       .get();
     if (query.docs.length === 0) {
+      console.log("user", user);
       await db.collection("users").add({
         uid: user.uid,
         name: user.displayName,
