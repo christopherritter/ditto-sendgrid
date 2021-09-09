@@ -51,7 +51,6 @@ const SelectTemplate = forwardRef(({ selectTemplate, user, deleteTemplate, write
   }
 
   function onSelectTemplate(template) {
-    console.log(template);
     selectTemplate(template);
     // writeEmail();
   }
