@@ -30,8 +30,6 @@ const Navbar = (props) => {
   const classes = useStyles();
   const location = useLocation();
 
-  console.log("location", location);
-
   return (
     <div className={classes.root}>
       <AppBar position="static">
