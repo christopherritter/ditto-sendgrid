@@ -75,6 +75,7 @@ function App() {
               ref={writeEmailRef}
               user={user}
               selectedTemplate={selectedTemplate}
+              scrollToWriteEmail={scrollToWriteEmail}
               // createTemplate={(formData) => createTemplate(formData)}
             />
           </Route>
