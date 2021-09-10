@@ -213,7 +213,7 @@ const WriteEmail = forwardRef(
                           className={classes.button}
                           disabled={!formData.recipient_email || !formData.subject || !formData.body}
                         >
-                          Show Preview
+                          Preview Email
                         </Button>
                       </Grid>
                     </>
