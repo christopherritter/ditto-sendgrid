@@ -43,7 +43,7 @@ const signInWithFacebook = async () => {
       });
     }
   } catch (err) {
-    console.error(err);
+    console.log(err);
   }
 };
 
@@ -51,7 +51,7 @@ const signInWithEmailAndPassword = async (email, password) => {
   try {
     await auth.signInWithEmailAndPassword(email, password);
   } catch (err) {
-    console.error(err);
+    alert(err.message);
   }
 };
 
@@ -66,7 +66,7 @@ const registerWithEmailAndPassword = async (name, email, password) => {
       email,
     });
   } catch (err) {
-    console.error(err);
+    alert(err.message);
   }
 };
 
@@ -75,7 +75,7 @@ const sendPasswordResetEmail = async (email) => {
     await auth.sendPasswordResetEmail(email);
     alert("Password reset link sent!");
   } catch (err) {
-    console.error(err);
+    alert(err.message);
   }
 };
 

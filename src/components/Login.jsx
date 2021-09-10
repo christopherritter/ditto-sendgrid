@@ -13,8 +13,10 @@ import {
   Typography,
   TextField,
   Button,
+  Snackbar,
 } from "@material-ui/core";
-import FacebookIcon from '@material-ui/icons/Facebook';
+import MuiAlert from "@material-ui/lab/Alert";
+import FacebookIcon from "@material-ui/icons/Facebook";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -46,13 +48,18 @@ const useStyles = makeStyles((theme) => ({
   helpText: {
     textAlign: "center",
     marginBottom: "8rem",
-  }
+  },
 }));
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [user, loading, error] = useAuthState(auth);
+  const [open, setOpen] = useState(false);
   const classes = useStyles();
   const history = useHistory();
 
@@ -68,12 +75,25 @@ function Login() {
 
   useEffect(() => {
     if (error) {
-      console.log(error);
+      console.log("Login", error);
     }
   }, [error]);
 
+  function handleClose(event, reason) {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  }
+
   return (
     <Container component="main" maxWidth="xs">
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="error">
+          {error}
+        </Alert>
+      </Snackbar>
       <div className={classes.paper}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
@@ -95,7 +115,9 @@ function Login() {
           >
             Login with Facebook
           </Button>
-          <Typography variant="h6" className={classes.theBigOr}>or</Typography>
+          <Typography variant="h6" className={classes.theBigOr}>
+            or
+          </Typography>
           <TextField
             variant="outlined"
             margin="normal"
