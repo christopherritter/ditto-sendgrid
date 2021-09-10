@@ -30,7 +30,7 @@ const Transition = React.forwardRef((props, ref) => {
 });
 
 export default function FullScreenDialog(props) {
-  const { showPreview, hidePreview, sendEmail, selectedTemplate } = props;
+  const { showPreview, hidePreview, sendEmail, selectedTemplate, userProfile } = props;
   const classes = useStyles();
 
   const dialogRef = useRef(null);
@@ -71,6 +71,20 @@ export default function FullScreenDialog(props) {
             <ListItemText
               primary="Recipient"
               secondary={selectedTemplate.recipient_email}
+            />
+          </ListItem>
+          <Divider />
+          <ListItem button>
+            <ListItemText
+              primary="Reply To"
+              secondary={userProfile.email}
+            />
+          </ListItem>
+          <Divider />
+          <ListItem button>
+            <ListItemText
+              primary="Subject"
+              secondary={selectedTemplate.subject}
             />
           </ListItem>
           <Divider />

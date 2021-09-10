@@ -148,6 +148,7 @@ const WriteEmail = forwardRef(
           hidePreview={hidePreview}
           selectedTemplate={selectedTemplate}
           sendEmail={() => sendEmail()}
+          userProfile={userProfile}
         />
         <Container>
           <Grid container>
