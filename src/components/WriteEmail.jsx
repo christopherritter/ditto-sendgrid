@@ -11,6 +11,10 @@ import {
   Grid,
   Typography,
   TextField,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
   Button,
 } from "@material-ui/core";
 
@@ -32,6 +36,13 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#fff",
     marginBottom: theme.spacing(1),
   },
+  formControl: {
+    minWidth: 120,
+    marginBottom: theme.spacing(1),
+  },
+  selectInput: {
+    backgroundColor: "#fff",
+  },
   button: {
     marginBottom: theme.spacing(3),
     marginLeft: theme.spacing(2),
@@ -46,13 +57,66 @@ const initialFormState = {
   body: "",
 };
 
+const recipientCollection = db.collection("/recipients");
+
 const WriteEmail = forwardRef(
   ({ user, selectedTemplate, scrollToWriteEmail }, ref) => {
     const classes = useStyles();
     const [userProfile, setUserProfile] = React.useState(null);
     const [formData, setFormData] = useState(initialFormState);
     const [showPreview, setShowPreview] = useState(false);
+    const [recipients, setRecipients] = useState(null);
     const history = useHistory();
+
+    useEffect(() => {
+      async function fetchUserProfile() {
+        var result;
+        const snapshot = await db
+          .collection("users")
+          .where("uid", "==", user.uid)
+          .get();
+        if (snapshot.empty) {
+          console.log("No matching documents.");
+          return;
+        }
+        snapshot.forEach((doc) => {
+          result = doc.data();
+        });
+        setUserProfile(result);
+      }
+      if (user && !userProfile) {
+        fetchUserProfile();
+      }
+      if (userProfile && !userProfile.email) {
+        history.replace("/profile");
+      }
+    }, [user, userProfile, history]);
+
+    useEffect(() => {
+      async function fetchAllRecipients() {
+        var results = [];
+        const snapshot = await recipientCollection.get();
+        if (snapshot.empty) {
+          console.log("No matching documents.");
+          return;
+        }
+        snapshot.forEach((doc) => {
+          var result = doc.data();
+          result.id = doc.id;
+          results.push(result);
+        });
+        setRecipients(results);
+      }
+      if (!recipients) {
+        fetchAllRecipients();
+      }
+    }, [recipients]);
+
+    useEffect(() => {
+      if (selectedTemplate) {
+        setFormData(selectedTemplate);
+      }
+    }, [selectedTemplate]);
 
     function onCreateTemplate() {
       // createTemplate(formData);
@@ -110,36 +174,6 @@ const WriteEmail = forwardRef(
       setFormData({ ...formData, body });
     }
 
-    useEffect(() => {
-      async function fetchUserProfile() {
-        var result;
-        const snapshot = await db
-          .collection("users")
-          .where("uid", "==", user.uid)
-          .get();
-        if (snapshot.empty) {
-          console.log("No matching documents.");
-          return;
-        }
-        snapshot.forEach((doc) => {
-          result = doc.data();
-        });
-        setUserProfile(result);
-      }
-      if (user && !userProfile) {
-        fetchUserProfile();
-      }
-      if (userProfile && !userProfile.email) {
-        history.replace("/profile");
-      }
-    }, [user, userProfile, history]);
-
-    useEffect(() => {
-      if (selectedTemplate) {
-        setFormData(selectedTemplate);
-      }
-    }, [selectedTemplate]);
-
     return (
       <div ref={ref} className={classes.root}>
         <PreviewEmail
@@ -161,15 +195,30 @@ const WriteEmail = forwardRef(
               <form noValidate autoComplete="off">
                 <Grid container>
                   <Grid item xs={12}>
-                    <TextField
-                      className={classes.textfield}
-                      label="Recipient"
+                    <FormControl
                       variant="outlined"
+                      className={classes.formControl}
                       fullWidth
-                      onChange={handleRecipientInput}
-                      placeholder="Recipient"
-                      value={formData.recipient_email}
-                    />
+                    >
+                      <InputLabel id="demo-simple-select-outlined-label">
+                        Recipient
+                      </InputLabel>
+                      <Select
+                        labelId="demo-simple-select-outlined-label"
+                        id="demo-simple-select-outlined"
+                        value={formData.recipient_email}
+                        onChange={handleRecipientInput}
+                        label="Recipient"
+                        className={classes.selectInput}
+                      >
+                        <MenuItem value="">
+                          <em>None</em>
+                        </MenuItem>
+                        {recipients && recipients.map((recipient) => (
+                          <MenuItem value={recipient.email} key={recipient.id}> {recipient.name} </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
                   </Grid>
                   <Grid item xs={12}>
                     <TextField
@@ -203,7 +252,11 @@ const WriteEmail = forwardRef(
                           color="primary"
                           onClick={onCreateTemplate}
                           className={classes.button}
-                          disabled={!formData.recipient_email || !formData.subject || !formData.body}
+                          disabled={
+                            !formData.recipient_email ||
+                            !formData.subject ||
+                            !formData.body
+                          }
                         >
                           Save Template
                         </Button>
@@ -212,7 +265,11 @@ const WriteEmail = forwardRef(
                           color="secondary"
                           onClick={previewEmail}
                           className={classes.button}
-                          disabled={!formData.recipient_email || !formData.subject || !formData.body}
+                          disabled={
+                            !formData.recipient_email ||
+                            !formData.subject ||
+                            !formData.body
+                          }
                         >
                           Preview Email
                         </Button>
