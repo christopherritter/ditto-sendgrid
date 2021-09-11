@@ -30,7 +30,7 @@ const Transition = React.forwardRef((props, ref) => {
 });
 
 export default function FullScreenDialog(props) {
-  const { showPreview, hidePreview, sendEmail, selectedTemplate, userProfile } = props;
+  const { showPreview, hidePreview, sendEmail, formData, userProfile } = props;
   const classes = useStyles();
 
   const dialogRef = useRef(null);
@@ -65,34 +65,35 @@ export default function FullScreenDialog(props) {
           </Button>
         </Toolbar>
       </AppBar>
-      {selectedTemplate && (
+      {formData && (
         <List>
           <ListItem button>
             <ListItemText
               primary="Recipient"
-              secondary={selectedTemplate.recipient_email}
+              secondary={formData.recipient_email}
             />
           </ListItem>
+          {userProfile && userProfile.email && (
+            <>
+              <Divider />
+              <ListItem button>
+                <ListItemText
+                  primary="Reply To"
+                  secondary={userProfile.email}
+                />
+              </ListItem>
+            </>
+          )}
           <Divider />
           <ListItem button>
-            <ListItemText
-              primary="Reply To"
-              secondary={userProfile.email}
-            />
-          </ListItem>
-          <Divider />
-          <ListItem button>
-            <ListItemText
-              primary="Subject"
-              secondary={selectedTemplate.subject}
-            />
+            <ListItemText primary="Subject" secondary={formData.subject} />
           </ListItem>
           <Divider />
           <ListItem button>
             <ListItemText
               primary="Message"
               style={{ whiteSpace: "pre-line" }}
-              secondary={selectedTemplate.body}
+              secondary={formData.body}
             />
           </ListItem>
         </List>

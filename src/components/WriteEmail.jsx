@@ -60,7 +60,7 @@ const initialFormState = {
 const recipientCollection = db.collection("/recipients");
 
 const WriteEmail = forwardRef(
-  ({ user, selectedTemplate, scrollToWriteEmail }, ref) => {
+  ({ user, selectedTemplate, selectTemplate, scrollToWriteEmail }, ref) => {
     const classes = useStyles();
     const [userProfile, setUserProfile] = React.useState(null);
     const [formData, setFormData] = useState(initialFormState);
@@ -132,6 +132,7 @@ const WriteEmail = forwardRef(
     }
 
     function previewEmail() {
+      selectTemplate(formData);
       setShowPreview(true);
     }
 
@@ -180,7 +181,6 @@ const WriteEmail = forwardRef(
           formData={formData}
           showPreview={showPreview}
           hidePreview={hidePreview}
-          selectedTemplate={selectedTemplate}
           sendEmail={() => sendEmail()}
           userProfile={userProfile}
         />
