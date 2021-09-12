@@ -17,8 +17,11 @@ const useStyles = makeStyles(() => ({
     flexGrow: 1,
   },
   toolbar: {
-    backgroundColor: "#ffbd27",
-    color: "#36207f",
+    backgroundColor: "#005641",
+    color: "#fff",
+  },
+  button: {
+    color: "#fff",
   },
   title: {
     flexGrow: 1,
@@ -59,7 +62,7 @@ const Navbar = (props) => {
             </>
           )}
           {loggedIn ? (
-            <Button color="primary" onClick={logout}>
+            <Button className={classes.button} onClick={logout}>
               Sign Out
             </Button>
           ) : (

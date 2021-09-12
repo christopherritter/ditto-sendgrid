@@ -5,7 +5,7 @@ import { Container, Grid, Typography, Button, Hidden } from "@material-ui/core";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    backgroundColor: "#36207f",
+    backgroundColor: "#023f5d",
     color: "#fff",
     textAlign: "center",
     padding: "1rem 0 2rem 0",
@@ -20,9 +20,10 @@ const useStyles = makeStyles((theme) => ({
   button: {
     "&:hover": {
       backgroundColor: "#fff",
+      color: "#005641",
     },
-    backgroundColor: "#ffbd27",
-    color: "#15151d",
+    backgroundColor: "#005641",
+    color: "#fff",
     marginTop: "2em",
     marginRight: "1em",
     paddingLeft: "2em",

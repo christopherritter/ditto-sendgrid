@@ -28,11 +28,14 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: "0.25em",
     textAlign: "center",
   },
+  primaryButton: {
+    color: "#005641",
+  },
   letter: {
     margin: "1em",
   },
   avatar: {
-    backgroundColor:"#36207f",
+    backgroundColor:"#005641",
   },
 }));
 
@@ -112,7 +115,7 @@ const SelectTemplate = forwardRef(
                         </CardContent>
                         <CardActions>
                           <Button
-                            color="primary"
+                            className={classes.primaryButton}
                             onClick={() => onSelectTemplate(template)}
                           >
                             View template

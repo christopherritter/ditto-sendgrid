@@ -21,7 +21,7 @@ import {
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    backgroundColor: "#36207f",
+    backgroundColor: "#023f5d",
     color: "#fff",
     paddingBottom: theme.spacing(4),
   },

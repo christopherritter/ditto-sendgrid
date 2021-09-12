@@ -6,10 +6,13 @@ import { Grid, Typography } from "@material-ui/core";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    backgroundColor: "#ffbd27",
-    color: "#36207f"
+    backgroundColor: "#005641",
+    color: "#fff"
   },
   footer: {
+    "& a": {
+      color: "#fff"
+    },
     textAlign: "center",
     padding: theme.spacing(4),
   }
